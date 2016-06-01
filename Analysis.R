@@ -23,8 +23,8 @@
 
 Info<-function(singleStockSymbol, startDate, endDate, discretization){
   #Get Data on single stock using getYahooData from yahoo.R
-  source("yahoo.R")
-  singleStockData<-getYahooData(singleStockSymbol, startDate, endDate, discretization, FALSE)
+  source("Data.R")
+  singleStockData<-getYahooData(singleStockSymbol, startDate, endDate, discretization)
   #Calculate return vector from Adjusted Closing Prices
   adjustedClose<-singleStockData$Adj.Close
   DateVector<-as.Date(singleStockData$Date)
