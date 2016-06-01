@@ -28,7 +28,7 @@ Info<-function(singleStockSymbol, startDate, endDate, discretization){
   #Calculate return vector from Adjusted Closing Prices
   adjustedClose<-singleStockData$Adj.Close
   DateVector<-as.Date(singleStockData$Date)
-  returnVector<-(-1)*diff(adjustedClose)/adjustedClose[2:length(adjustedClose)]
+  returnVector<-getReturnVector(singleStockData)
   #Create infoVector
   infoVector<-matrix(0,9,1)  #Info vektor vorbelegen
   infoVector[1]<-as.character.Date(startDate)
