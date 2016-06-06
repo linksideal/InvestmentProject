@@ -73,7 +73,7 @@ getMultipleYahooData <- function(multiStockSymbols, startDate, endDate, discreti
   }
   #Reduce each time series to IntersectionDates
   for (i in 1:length(timeSeriesList)){
-    timeSeriesList[[i]] <- timeSeriesList[[i]][timeSeriesList[[1]]$Date %in% IntersectionDates,]
+    timeSeriesList[[i]] <- timeSeriesList[[i]][timeSeriesList[[i]]$Date %in% IntersectionDates,]
   }
   return(timeSeriesList)
 }
@@ -83,12 +83,11 @@ getMultipleYahooData <- function(multiStockSymbols, startDate, endDate, discreti
 
 #Function (getReturnVector)   Get return Vector from single Time Series data frame
 #
-#Input      Data Frame:singleTimeSeries
-#Output     Data Frame: returnVector (1 dim less than singleTimeSeries$Adj.Close) 
+#Input      adjClose      Data Frame vector:singleTimeSeries$Adj.Close
+#Output     returnVector  Data Frame: returnVector (1 dim less than singleTimeSeries$Adj.Close) 
 
-getReturnVector<-function(singleTimeSeries){
-  adjClose<-singleTimeSeries$Adj.Close
-  returnVector<-(-1)*diff(adjClose)/adjClose[2:length(adjClose)]
+getReturnVector<-function(adjustedClose){
+  returnVector<-(-1)*diff(adjustedClose)/adjustedClose[2:length(adjustedClose)]
   return(returnVector)
 }
 
@@ -96,19 +95,22 @@ getReturnVector<-function(singleTimeSeries){
 
 #Test
 # 
-# singleStockSymbol <- c("ADS.DE")
-# multiStockSymbols<-c("ADS.DE","^GDAXI")
-# startDate<-"2016-05-01"
-# endDate<-Sys.Date()
-# discretization<-"d"
+#  singleStockSymbol <- c("ADS.DE")
+#  multiStockSymbols<-c("^GDAXI","LIN.DE","ADS.DE")
+#  startDate<-"2016-05-01"
+#  endDate<-Sys.Date()
+#  discretization<-"d"
+#  
+#  singleTimeSeries <- getYahooData(singleStockSymbol, startDate, endDate, discretization)
+#  print(singleTimeSeries)
+#  
+#  multiTimeSeries<- getMultipleYahooData(multiStockSymbols,startDate, endDate, discretization)
+#  print(multiTimeSeries)
+#  length(multiTimeSeries[[1]]$Date)  #Verschiedene Längen
+#  length(multiTimeSeries[[2]]$Date)
+#  length(multiTimeSeries[[3]]$Date)
+#  
+#  getReturnVector(multiTimeSeries[[1]])
+#  getReturnVector(multiTimeSeries[[2]])
 # 
-# singleTimeSeries <- getYahooData(singleStockSymbol, startDate, endDate, discretization)
-# print(singleTimeSeries)
-# 
-# multiTimeSeries<- getMultipleYahooData(multiStockSymbols,startDate, endDate, discretization)
-# print(multiTimeSeries)
-# 
-# getReturnVector(multiTimeSeries[[1]])
-# getReturnVector(multiTimeSeries[[2]])
-
 
